@@ -1,4 +1,5 @@
-import { Controller, Delete, Get, Param, Post, Put, Body } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Put, Body, ParseIntPipe } from '@nestjs/common';
+import { CreatePostDto } from './dtos';
 
 @Controller('post')
 export class PostController {
@@ -9,13 +10,13 @@ export class PostController {
     }
 
     @Get(':id')
-    getOne(@Param('id')id:number){        
+    getOne(@Param('id', ParseIntPipe) id:number){        
         return { message: 'getOne' }
     }
 
     @Post()
-    createOne(@Body('title') title:any, @Body('content') content:any){
-        
+    createOne(@Body() dto:CreatePostDto){
+        return dto;    
     }
 
     @Put(':id')
